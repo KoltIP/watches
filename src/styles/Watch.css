@@ -9,6 +9,16 @@
     height: 100px;
 }
 
-.fa-times::before {
-    content: '\f00d';
+.item{
+    margin: 10px;
+}
+
+
+.close {
+    border: 2px solid black;
+    margin-left: 290px;
+    width:15px;
+    height: 30px;
+    background: url("../../public/images/close.png");
+    content: "";
   }

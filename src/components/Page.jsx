@@ -16,10 +16,14 @@ const Page = () => {
         console.log(watches);
     }
 
+    const deleteWatch = (watch) => {
+        setWathces(watches.filter(p=>p!==watch));
+    }
+
     return(  
         <>
             <AddWatchMenu action={addWatch} />
-            <WatchesList watches = {watches} />
+            <WatchesList watches = {watches} action = {(watch) => deleteWatch(watch)}/>
         </>
     )    
 }

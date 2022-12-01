@@ -4,14 +4,20 @@ import classes from '../styles/Watch.css';
 const Watch = (props) => {
 
     let watch = props.watch;
+
+    const action = props.action
+
+    const Delete = () => {
+        action(watch);
+    }
+
+    
     return(  
-        <>            
+        <>             
             <div className='watch'>
-                <div className="close">
-                    <i className="fas fa-times"></i>
-                </div>
-                <label>{watch.name}</label>
-                <input value = {watch.time} />
+                <div className="close" onClick={Delete}></div>
+                <label className='item'>{watch.name}</label>
+                <input className='item' value = {watch.time} />
             </div>
         </>
     )    

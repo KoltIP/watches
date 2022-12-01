@@ -6,6 +6,8 @@ const WatchesList = (props) => {
 
     const watches = props.watches;
 
+    const action = props.action;
+
     return(  
        <div className='box'>
             {watches === undefined
@@ -13,8 +15,8 @@ const WatchesList = (props) => {
             <span>Здесь пока пусто</span>
             :
             watches.map((watch,index)=> 
-            <div>                
-                <Watch watch={watch} key={index} />
+            <div key={index}>                
+                <Watch watch={watch} action={action}/>
             </div>)
             }
        </div>
