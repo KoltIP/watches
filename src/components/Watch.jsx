@@ -4,7 +4,7 @@ import classes from '../styles/Watch.css';
 const Watch = (props) => {
 
     let watch = props.watch;
-
+    let time = watch.hh + ":" + watch.mm + ":" + watch.s;
     const action = props.action
 
     const Delete = () => {
@@ -20,7 +20,7 @@ const Watch = (props) => {
             <div className='watch'>
                 <div className="close" onClick={Delete}></div>
                 <label className='item'>{watch.name}</label>
-                <input className='item' value = {watch.time} onChange={Nothing}/>
+                <input className='item' value = {time} onChange={Nothing}/>
             </div>
         </>
     )    

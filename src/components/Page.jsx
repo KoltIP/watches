@@ -1,8 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import AddWatchMenu from './AddWatchMenu';
 import WatchesList from '../components/WatchesList';
 import moment from 'moment';
-import { unstable_renderSubtreeIntoContainer } from 'react-dom';
 
 const Page = () => {
 
@@ -10,46 +9,45 @@ const Page = () => {
 
     const [watches,setWathces] = useState([]);
 
-    const addTimer=(watch)=>{
-        let copy = watches.find(x => watch.name === x.name);
-        console.log(watches);
-        if (copy !== undefined && copy !== null)
-        {
-            console.log(copy);
-            let sTime = copy.time;
-            let aTime = sTime.substring(0,sTime.length-3).split(':');
-            aTime[0] = '0' + aTime[0];
-            let date = (new Date(0, 0, 0,aTime[0], aTime[1], aTime[2],0));
-            let updatedSec = date.getSeconds + 3;
-            if (updatedSec>55)
-                updatedSec =0;
-            date.setSeconds(updatedSec);        
-            console.log(date);    
-            copy.time = moment(date).format('LTS');
-            setWathces(watches.filter(p=>p!==watch));
-            setWathces([...watches,copy]);
-        }     
+    const addTimer=(item)=>{
+        let copy = item;
+        copy.id = setInterval(() => {
+            //Вместо консоль лога менять значение секунд
+            console.log("id:", copy.id);   
+          }, 1000);
+      
+          return () => {
+            clearInterval(copy.id);
+          };
     }
 
+    // React.useEffect(() => {
+    //     const id = setInterval(() => {
+    //       console.log("id:", id);
+    //       //setState((prevState) => prevState + 1);
+    //     }, 1000);
+    
+    //     return () => {
+    //       clearInterval(id);
+    //     };
+    //   }, []);
+
+
     const addWatch = (watchName, watchTime) => {
-
         let timeMass = watchTime.split(':');
-        let time = (new Date(0, 0, 0,timeMass[0], timeMass[1], timeMass[2],0));
-        time = moment(time).format('LTS');    
-
         let timerId = 0;
-
         let item = {
         name : watchName,
-        time : time,
+        hh : timeMass[0],
+        mm : timeMass[1],
+        s : timeMass[2],
         timerId : timerId}
-
-        item.timerId = setInterval(() => addTimer(item), 3000);
-
+        addTimer(item);
         setWathces([...watches, item]);
     }
 
     const deleteWatch = (watch) => {
+        clearInterval(watch.id);
         setWathces(watches.filter(p=>p!==watch));
     }
 
