@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import AddWatchMenu from './AddWatchMenu';
 import WatchesList from '../components/WatchesList';
 import moment from 'moment';
+import { computeHeadingLevel } from '@testing-library/react';
 
 const Page = () => {
 
@@ -13,7 +14,9 @@ const Page = () => {
         let copy = item;
         copy.id = setInterval(() => {
             //Вместо консоль лога менять значение секунд
-            console.log("id:", copy.id);   
+            console.log("id:", copy.id);
+            copy.s = Number(copy.s) + 1 ;
+            setWathces([...watches, copy]);
           }, 1000);
       
           return () => {
