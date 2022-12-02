@@ -11,13 +11,16 @@ const Watch = (props) => {
         action(watch);
     }
 
+    const Nothing=()=>{
+        
+    }
     
     return(  
         <>             
             <div className='watch'>
                 <div className="close" onClick={Delete}></div>
                 <label className='item'>{watch.name}</label>
-                <input className='item' value = {watch.time} />
+                <input className='item' value = {watch.time} onChange={Nothing}/>
             </div>
         </>
     )    
