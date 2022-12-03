@@ -1,40 +1,75 @@
 import React, {useState, useEffect} from 'react';
 import AddWatchMenu from './AddWatchMenu';
 import WatchesList from '../components/WatchesList';
-import moment from 'moment';
-import { computeHeadingLevel } from '@testing-library/react';
+
 
 const Page = () => {
 
-    moment.locale();  
-
     const [watches,setWathces] = useState([]);
 
-    const addTimer=(item)=>{
-        let copy = item;
-        copy.id = setInterval(() => {
-            //Вместо консоль лога менять значение секунд
-            console.log("id:", copy.id);
-            copy.s = Number(copy.s) + 1 ;
-            setWathces([...watches, copy]);
-          }, 1000);
-      
-          return () => {
-            clearInterval(copy.id);
-          };
+    const addTimer=()=>{
+        let copy = watches;
+        for (let i=0;i<watches.length;i++)
+        {
+            if (copy[i].s>58)
+            {
+                if (copy[i].mm >58)
+                {
+                    copy[i].s = 0;
+                    copy[i].mm =0;
+                    copy[i].hh = Number(copy[i].hh) +1;
+                }
+                else
+                {
+                    copy[i].s = Number(0);
+                    copy[i].mm = Number(copy[i].mm) + 1;
+                }
+            }
+            else
+                copy[i].s = Number(copy[i].s) + 1 ;                      
+        }
+        setWathces(copy);  
     }
 
-    // React.useEffect(() => {
-    //     const id = setInterval(() => {
-    //       console.log("id:", id);
-    //       //setState((prevState) => prevState + 1);
-    //     }, 1000);
-    
-    //     return () => {
-    //       clearInterval(id);
-    //     };
-    //   }, []);
 
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+          addTimer()
+        }, 1000);
+        return () => clearInterval(interval);
+      }, []);
+
+    //Вместо стейта, внутри которого массив, сделай массив из стейтов
+    
+
+    // const addTimer=(item)=>{
+    //     let copy = item;
+    //     copy.id = setInterval(() => {
+    //         if (copy.s>58)
+    //         {
+    //             if (copy.mm >58)
+    //             {
+    //                 copy.s = 0;
+    //                 copy.mm =0;
+    //                 copy.hh = Number(copy.hh) +1;
+    //             }
+    //             else
+    //             {
+    //                 copy.s = Number(0);
+    //                 copy.mm = Number(copy.mm) + 1;
+    //             }
+    //         }
+    //         else
+    //             copy.s = Number(copy.s) + 1 ;
+    //         setWathces([...watches, copy]);
+    //       }, 1000);
+      
+    //       return () => {
+    //         clearInterval(copy.id);
+    //       };
+    // }
+    
 
     const addWatch = (watchName, watchTime) => {
         let timeMass = watchTime.split(':');
@@ -45,7 +80,6 @@ const Page = () => {
         mm : timeMass[1],
         s : timeMass[2],
         timerId : timerId}
-        addTimer(item);
         setWathces([...watches, item]);
     }
 
