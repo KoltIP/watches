@@ -36,9 +36,9 @@ const Page = () => {
         setWatches(watches.filter(p=>p!==watch));
     }
 
-    for(var i = setInterval(''); i >= 0; i--)
-        clearInterval(i);  
-    setInterval(()=>{addTimer()},1000)
+      for(var i = setInterval(''); i >= 0; i--)
+            clearInterval(i);  
+        setInterval(()=>{addTimer()},1000);
       
     
     
