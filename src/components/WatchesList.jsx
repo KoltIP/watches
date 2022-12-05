@@ -5,12 +5,12 @@ import classes from '../styles/Watches.css';
 const WatchesList = (props) => {
 
     const watches = props.watches;
-
+    console.log(watches);
     const action = props.action;
 
     return(  
        <div className='box'>
-            {watches === undefined
+            {(watches === undefined) || (watches.length === 0) || (watches === null)
             ?
             <span>Здесь пока пусто</span>
             :
