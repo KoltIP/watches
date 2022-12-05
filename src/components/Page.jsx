@@ -4,10 +4,11 @@ import WatchesList from '../components/WatchesList';
 
 
 const Page = () => {
-
+    let timeout;
     const [watches,setWatches] = useState([]);
 
-    const addTimer=()=>{       
+    const addTimer=(watches)=>{     
+        console.log(watches);  
         if (watches.length ===0)
             return ;
             let copy = watches;
@@ -28,7 +29,6 @@ const Page = () => {
         m:massTime[1],
         h:massTime[0]
         }
-
         setWatches([...watches, item]);
     }
 
@@ -36,13 +36,18 @@ const Page = () => {
         setWatches(watches.filter(p=>p!==watch));
     }
 
-      for(var i = setInterval(''); i >= 0; i--)
-            clearInterval(i);  
-        setInterval(()=>{addTimer()},1000);
-      
-    
-    
+    // useEffect(() => {
+    //     const timeout = setTimeout(() => console.log(watches), 1000);
+    //     return () => clearTimeout(timeout);
+    //   }, []);
 
+
+    useEffect(() => {
+        clearInterval(timeout)
+        timeout = setInterval(() => addTimer(watches), 1000);
+        //return () => clearInterval(timeout);
+      }, [watches]);
+    
     return(  
         <>
             <AddWatchMenu action={addWatch} />

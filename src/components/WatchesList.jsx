@@ -5,7 +5,6 @@ import classes from '../styles/Watches.css';
 const WatchesList = (props) => {
 
     const watches = props.watches;
-    console.log(watches);
     const action = props.action;
 
     return(  
