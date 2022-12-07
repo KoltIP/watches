@@ -2,15 +2,17 @@ import React, {useState, useEffect} from 'react';
 import AddWatchMenu from './AddWatchMenu';
 import WatchesList from '../components/WatchesList';
 import { render } from '@testing-library/react';
+import Watch from './Watch';
+import { unstable_renderSubtreeIntoContainer } from 'react-dom';
 
 
 const Page = () => {
     let timeout = 0;
+    let mass = [];
     const [watches,setWatches] = useState([]);
 
-    const addTimer=()=>{   
-        clearTimeout(timeout); 
-        timeout = setTimeout(() => {
+    const addTimer=()=>{    
+        // timeout = setTimeout(() => {
         if (watches.length ===0)
             return ;
             let copy = watches;
@@ -36,8 +38,9 @@ const Page = () => {
                     copy[i].h = Number(0);
                 }
             }
-            setWatches(copy);            
-        },1000);
+            //console.log(copy);
+            return copy;          
+        // },1000);
     }
 
     const addWatch = (watchName, watchTime) => {
@@ -59,14 +62,26 @@ const Page = () => {
         setWatches(watches.filter(p=>p!==watch));
         clearTimeout(timeout);
     }
+ 
+    useEffect(() => {
 
-    // useEffect(() => {
-    //     const timeout = setInterval(() => addTimer(watches), 1000);
-    //     return () => clearInterval(timeout);
-    //   });   
-   
+                    const timerId = setInterval(()=>
+                    {
+                        if (watches.length!==0)
+                        {
+                            let mass = watches;
+                            for (let i=0;i<watches.length;i++)
+                                mass[i].s = Number(mass[i].s) + 1;
+                            setWatches(mass);                         
+                            console.log(watches);
+                        }
+                    },1000);
+                    
+                    //setWatches(mass);
 
-    useEffect(() => addTimer);
+                    return () => {   clearInterval(timerId);     }
+                }
+            );
     
 
     return(  

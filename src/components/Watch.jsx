@@ -2,7 +2,6 @@ import React from 'react';
 import classes from '../styles/Watch.css';
 
 const Watch = (props) => {
-
     let watch = props.watch;
     let time = watch.h + ":" + watch.m + ":" + watch.s;
     const action = props.action
