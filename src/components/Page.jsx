@@ -77,7 +77,6 @@ const Page = () => {
                         }
                     },1000);
                     
-                    //setWatches(mass);
 
                     return () => {   clearInterval(timerId);     }
                 }
