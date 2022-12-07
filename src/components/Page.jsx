@@ -10,38 +10,35 @@ const Page = () => {
     let timeout = 0;
     let mass = [];
     const [watches,setWatches] = useState([]);
-
-    const addTimer=()=>{    
-        // timeout = setTimeout(() => {
-        if (watches.length ===0)
-            return ;
-            let copy = watches;
-            for (let i=0;i<copy.length;i++)
-            {
-                if (copy[i].s<=59)
-                    copy[i].s = Number(copy[i].s) +1;
-                else if (copy[i].m<=59)
-                {
-                    copy[i].s = Number(0);
-                    copy[i].m = Number(copy[i].m) +1;
-                }
-                else if (copy[i].h<=24)
-                {
-                    copy[i].s = Number(0);
-                    copy[i].m = Number(0);
-                    copy[i].h = Number(copy[i].h) +1;
-                }
-                else
-                {
-                    copy[i].s = Number(0);
-                    copy[i].m = Number(0);
-                    copy[i].h = Number(0);
-                }
-            }
-            //console.log(copy);
-            return copy;          
-        // },1000);
-    }
+    const [loading,setLoading] = useState(false);
+    // const addTimer=()=>{    
+    //     if (watches.length ===0)
+    //         return ;
+    //         let copy = watches;
+    //         for (let i=0;i<copy.length;i++)
+    //         {
+    //             if (copy[i].s<=59)
+    //                 copy[i].s = Number(copy[i].s) +1;
+    //             else if (copy[i].m<=59)
+    //             {
+    //                 copy[i].s = Number(0);
+    //                 copy[i].m = Number(copy[i].m) +1;
+    //             }
+    //             else if (copy[i].h<=24)
+    //             {
+    //                 copy[i].s = Number(0);
+    //                 copy[i].m = Number(0);
+    //                 copy[i].h = Number(copy[i].h) +1;
+    //             }
+    //             else
+    //             {
+    //                 copy[i].s = Number(0);
+    //                 copy[i].m = Number(0);
+    //                 copy[i].h = Number(0);
+    //             }
+    //         }
+    //         return copy;    
+    // }
 
     const addWatch = (watchName, watchTime) => {
         clearTimeout(timeout); 
@@ -67,15 +64,38 @@ const Page = () => {
 
                     const timerId = setInterval(()=>
                     {
+                        setLoading(!loading);
                         if (watches.length!==0)
                         {
-                            let mass = watches;
-                            for (let i=0;i<watches.length;i++)
-                                mass[i].s = Number(mass[i].s) + 1;
-                            setWatches(mass);                         
+                            let copy = watches;
+                            for (let i=0;i<copy.length;i++)
+                            {
+                                if (copy[i].s<=59)
+                                    copy[i].s = Number(copy[i].s) +1;
+                                else if (copy[i].m<=59)
+                                {
+                                    copy[i].s = Number(0);
+                                    copy[i].m = Number(copy[i].m) +1;
+                                }
+                                else if (copy[i].h<=24)
+                                {
+                                    copy[i].s = Number(0);
+                                    copy[i].m = Number(0);
+                                    copy[i].h = Number(copy[i].h) +1;
+                                }
+                                else
+                                {
+                                    copy[i].s = Number(0);
+                                    copy[i].m = Number(0);
+                                    copy[i].h = Number(0);
+                                }
+                            }    
+                            setWatches(copy);   
+                            setLoading(!loading);                                           
                             console.log(watches);
+                            console.log(loading);
                         }
-                    },1000);
+                        },1000);
                     
 
                     return () => {   clearInterval(timerId);     }
