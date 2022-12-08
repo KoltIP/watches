@@ -1,44 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import AddWatchMenu from './AddWatchMenu';
 import WatchesList from '../components/WatchesList';
-import { render } from '@testing-library/react';
-import Watch from './Watch';
-import { unstable_renderSubtreeIntoContainer } from 'react-dom';
 
 
 const Page = () => {
     let timeout = 0;
-    let mass = [];
     const [watches,setWatches] = useState([]);
     const [loading,setLoading] = useState(false);
-    // const addTimer=()=>{    
-    //     if (watches.length ===0)
-    //         return ;
-    //         let copy = watches;
-    //         for (let i=0;i<copy.length;i++)
-    //         {
-    //             if (copy[i].s<=59)
-    //                 copy[i].s = Number(copy[i].s) +1;
-    //             else if (copy[i].m<=59)
-    //             {
-    //                 copy[i].s = Number(0);
-    //                 copy[i].m = Number(copy[i].m) +1;
-    //             }
-    //             else if (copy[i].h<=24)
-    //             {
-    //                 copy[i].s = Number(0);
-    //                 copy[i].m = Number(0);
-    //                 copy[i].h = Number(copy[i].h) +1;
-    //             }
-    //             else
-    //             {
-    //                 copy[i].s = Number(0);
-    //                 copy[i].m = Number(0);
-    //                 copy[i].h = Number(0);
-    //             }
-    //         }
-    //         return copy;    
-    // }
 
     const addWatch = (watchName, watchTime) => {
         clearTimeout(timeout); 
@@ -99,9 +67,7 @@ const Page = () => {
                                 }
                             }    
                             setWatches(copy);   
-                            setLoading(!loading);                                           
-                            console.log(watches);
-                            console.log(loading);
+                            setLoading(!loading);    
                         }
                         },1000);
                     
