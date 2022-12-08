@@ -70,24 +70,32 @@ const Page = () => {
                             let copy = watches;
                             for (let i=0;i<copy.length;i++)
                             {
-                                if (copy[i].s<=59)
+                                if (copy[i].s<59)
+                                {
                                     copy[i].s = Number(copy[i].s) +1;
-                                else if (copy[i].m<=59)
-                                {
-                                    copy[i].s = Number(0);
-                                    copy[i].m = Number(copy[i].m) +1;
+                                    if (copy[i].s<10)
+                                    copy[i].s = "0" + copy[i].s; 
                                 }
-                                else if (copy[i].h<=24)
+                                else if (copy[i].m<59)
                                 {
-                                    copy[i].s = Number(0);
-                                    copy[i].m = Number(0);
+                                    copy[i].s = "00";
+                                    copy[i].m = (Number(copy[i].m) +1);
+                                    if (copy[i]<10)
+                                        copy[i].m = "0" + copy[i].m; 
+                                }
+                                else if (copy[i].h<23)
+                                {
+                                    copy[i].s ="00";
+                                    copy[i].m = "00";
                                     copy[i].h = Number(copy[i].h) +1;
+                                    if (copy[i].h<10)
+                                        copy[i].h ="0"+copy[i].h ;
                                 }
                                 else
                                 {
-                                    copy[i].s = Number(0);
-                                    copy[i].m = Number(0);
-                                    copy[i].h = Number(0);
+                                    copy[i].s = "00";
+                                    copy[i].m ="00";
+                                    copy[i].h = "00";
                                 }
                             }    
                             setWatches(copy);   
